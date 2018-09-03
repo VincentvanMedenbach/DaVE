@@ -19,6 +19,10 @@ The Da Vinci Engine (DaVE) will be a small 2D game engine, running on the monoga
 ### Buttons
 - A base button class used for navigation
 - toggle to be clickable (Can a mouse or touchscreen be used to click it?)
+### Music
+- Control volume
+### Sound
+
 ### Online Play (Low Priority)
 
 ## Do Not Needs
