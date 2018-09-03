@@ -1,4 +1,4 @@
-![alt text](https://github.com/DamionWhite/DaVE/blob/master/Illustrator/512w/white-Logo-512x512.png "Logo DaVE")
+![alt text](https://github.com/DamionWhite/DaVE/blob/master/Illustrator/DaVE-Logo-512x195.png "Logo DaVE")
 
 ### Needs
 - 2D
