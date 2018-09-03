@@ -13,7 +13,7 @@ namespace DaVE
         [STAThread]
         static void Main()
         {
-            using (var game = new DaVE())
+            using (var game = new Game1())
                 game.Run();
         }
     }
