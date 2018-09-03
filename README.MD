@@ -1,5 +1,8 @@
 ![alt text](https://github.com/DamionWhite/DaVE/blob/master/Illustrator/DaVE-Logo-512x195.png "Logo DaVE")
 
+## DaVE
+The Da Vinci Engine (DaVE) will be a small 2D game engine, running on the monogame framework. This project aims to be as much educative as it is functional.
+
 ### Needs
 - 2D
 - Level Objects
