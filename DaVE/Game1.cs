@@ -7,12 +7,12 @@ namespace DaVE
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class DaVE : Game
+    public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         
-        public DaVE()
+        public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";

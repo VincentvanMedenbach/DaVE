@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>9daeae73-b91a-42ad-934b-0506dfba3a1f</ProjectGuid>
+    <ProjectGuid>6278062b-5aef-4a5b-84f9-f6eaab180282</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DaVE</RootNamespace>
