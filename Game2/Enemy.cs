@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -22,24 +23,27 @@ namespace Game2
         public direction direction;
 
         public Enemy()
-        {
+        { 
             FrameSize.X = 250;
             FrameSize.Y = 200;
-            Position.X = 600;
-            Position.Y = 900;
-            speed = 20;
+            Position.X = (screenSize.X - FrameSize.X) ;
+            Position.Y = (screenSize.Y - FrameSize.Y);
+            speed = 10;
         }
 
         public void Draw(SpriteBatch spriteBatch, Texture2D texture)
         {
-            if (this.Position.X >= 1900)
+            if (this.Position.X >= (screenSize.X - FrameSize.X))
             {
                 direction = direction.right;
                 score+=1;
+                speed += 1;
             }
-            else if(this.Position.X < 100)
+            else if(this.Position.X < 0)
             {
                 direction = direction.left;
+                score += 1;
+                speed += 1;
             }
 
             spriteBatch.Draw(texture,

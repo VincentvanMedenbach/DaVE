@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,15 +22,17 @@ namespace Game2
         private bool falling;
         private int speed;
         public double elapsedAirTime = 0.0;
-        double maxAirTime = 10;
-
+        double maxAirTime = 12;
+        public Vector2 screenSize;
         public Player()
         {
+            screenSize.X = 1920;
+            screenSize.Y = 1080;
             Content.RootDirectory = "Content";
-            Position.X = 400;
-            Position.Y = 900;
             FrameSize.X = 200;
             FrameSize.Y = 150;
+            Position.X = FrameSize.X;
+            Position.Y = (screenSize.Y - FrameSize.Y);
             speed = 10;
 
         }
@@ -41,14 +44,14 @@ namespace Game2
                 elapsedAirTime += 1;
                 this.Position.Y -= (int)calc;
             }
-            else if (this.falling && this.Position.Y < 900 || elapsedAirTime == maxAirTime && this.Position.Y < 900)
+            else if (this.falling && this.Position.Y < (screenSize.Y - FrameSize.Y)|| elapsedAirTime == maxAirTime && this.Position.Y < (screenSize.Y - FrameSize.Y))
             {
                 this.jumping = false;
                 this.falling = true;
-                double calc = 2 + (1 * elapsedAirTime);
+                double calc = 2 + (0.5 * elapsedAirTime);
                 this.Position.Y += (int)calc;
             }
-            else if (this.Position.Y >= 900)
+            else if (this.Position.Y >= (screenSize.Y - FrameSize.Y) )
             {
                 this.falling = false;
                 this.elapsedAirTime = 0;
@@ -59,11 +62,11 @@ namespace Game2
         }
         public void Move(direction Direction)
         {
-            if (Direction == direction.left)
+            if (Direction == direction.left && Position.X > 1)
             {
                 this.Position.X -= speed;
             }
-            if (Direction == direction.right)
+            if (Direction == direction.right && Position.X < (screenSize.X - FrameSize.X)  )
             {
                 this.Position.X += speed;
             }

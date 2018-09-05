@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Windows;
 
 namespace Game2
 {
@@ -13,6 +14,7 @@ namespace Game2
     /// </summary>
     public class Game1 : Game
     {
+        public Vector2 screenSize;
         private Texture2D background;
         public Texture2D moveAble;
         public Texture2D enemyTexture;
@@ -24,11 +26,14 @@ namespace Game2
         private int score = 0;
         public Game1()
         {
+            screenSize.X = 1920;
+            screenSize.Y = 1080;
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 1920;  // set this value to the desired width of your window
-            graphics.PreferredBackBufferHeight = 1080;   // set this value to the desired height of your window
+            graphics.PreferredBackBufferWidth = (int)screenSize.X;  // set this value to the desired width of your window
+            graphics.PreferredBackBufferHeight = (int)screenSize.Y;   // set this value to the desired height of your window
             graphics.ApplyChanges();
+
         }
         
         /// <summary>
@@ -80,6 +85,7 @@ namespace Game2
                 Exit();
             if (Player1.Collide(Snoek))
             {
+ System.Windows.Forms.MessageBox.Show("score:" + Snoek.score);
                 Exit();
             }
             // TODO: Add your update logic here
@@ -115,7 +121,7 @@ namespace Game2
             // TODO: Add your drawing code here
 
             spriteBatch.Begin();
-            spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White);
+            spriteBatch.Draw(background, new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y), Color.White);
             Player1.Draw(spriteBatch, moveAble); 
             Snoek.Draw(spriteBatch, enemyTexture);
             spriteBatch.DrawString(font, "Score" + Snoek.score, new Vector2(100, 100), Color.Black);
