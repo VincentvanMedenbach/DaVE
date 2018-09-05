@@ -23,9 +23,9 @@ namespace Game2
         public direction direction;
 
         public Enemy()
-        { 
-            FrameSize.X = 250;
-            FrameSize.Y = 200;
+        {
+            FrameSize.X = (float)(screenSize.X * 0.11);
+            FrameSize.Y = (float)(screenSize.Y * 0.2);
             Position.X = (screenSize.X - FrameSize.X) ;
             Position.Y = (screenSize.Y - FrameSize.Y);
             speed = 10;

@@ -26,11 +26,11 @@ namespace Game2
         public Vector2 screenSize;
         public Player()
         {
-            screenSize.X = 1920;
-            screenSize.Y = 1080;
+            screenSize.X = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            screenSize.Y = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             Content.RootDirectory = "Content";
-            FrameSize.X = 200;
-            FrameSize.Y = 150;
+            FrameSize.X = (float)(screenSize.X * 0.1);
+            FrameSize.Y = (float)(screenSize.Y * 0.1);
             Position.X = FrameSize.X;
             Position.Y = (screenSize.Y - FrameSize.Y);
             speed = 10;
@@ -62,7 +62,7 @@ namespace Game2
         }
         public void Move(direction Direction)
         {
-            if (Direction == direction.left )
+            if (Direction == direction.left && Position.X > 0 )
             {
                 this.Position.X -= speed;
             }

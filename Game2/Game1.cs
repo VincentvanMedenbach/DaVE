@@ -26,8 +26,8 @@ namespace Game2
         private int score = 0;
         public Game1()
         {
-            screenSize.X = 1920;
-            screenSize.Y = 1080;
+            screenSize.X = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            screenSize.Y = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = (int)screenSize.X;  // set this value to the desired width of your window
