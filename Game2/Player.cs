@@ -72,7 +72,7 @@ namespace Game2
                 {
                     jumping = true;
                 }
-                else if (Position.Y < 900)
+                else if (Position.Y < (screenSize.Y - FrameSize.Y))
                 {
                     jumping = false;
                     falling = true;
