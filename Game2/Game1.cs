@@ -1,0 +1,127 @@
+﻿using System;
+using System.IO;
+using System.Runtime.InteropServices;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
+namespace Game2
+{
+
+    /// <summary>
+    /// This is the main type for your game.
+    /// </summary>
+    public class Game1 : Game
+    {
+        private Texture2D background;
+        public Texture2D moveAble;
+        public Texture2D enemyTexture;
+        GraphicsDeviceManager graphics;
+        SpriteBatch spriteBatch;
+        public Player Player1 = new Player();
+        public Enemy Snoek = new Enemy();
+        private SpriteFont font;
+        private int score = 0;
+        public Game1()
+        {
+            graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+            graphics.PreferredBackBufferWidth = 1920;  // set this value to the desired width of your window
+            graphics.PreferredBackBufferHeight = 1080;   // set this value to the desired height of your window
+            graphics.ApplyChanges();
+        }
+        
+        /// <summary>
+        /// Allows the game to perform any initialization it needs to before starting to run.
+        /// This is where it can query for any required services and load any non-graphic
+        /// related content.  Calling base.Initialize will enumerate through any components
+        /// and initialize them as well.
+        /// </summary>
+        protected override void Initialize()
+        {
+            // TODO: Add your initialization logic here
+
+            base.Initialize();
+        }
+
+        /// <summary>
+        /// LoadContent will be called once per game and is the place to load
+        /// all of your content.
+        /// </summary>
+        protected override void LoadContent()
+        {
+            // Create a new SpriteBatch, which can be used to draw textures.
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            background = Content.Load<Texture2D>("davinci");
+            moveAble = Content.Load<Texture2D>("enemy");
+            enemyTexture = Content.Load<Texture2D>("Player");
+            font = Content.Load<SpriteFont>("File");
+            // TODO: use this.Content to load your game content here
+        }
+
+        /// <summary>
+        /// UnloadContent will be called once per game and is the place to unload
+        /// game-specific content.
+        /// </summary>
+        protected override void UnloadContent()
+        {
+            // TODO: Unload any non ContentManager content here
+        }
+
+        /// <summary>
+        /// Allows the game to run logic such as updating the world,
+        /// checking for collisions, gathering input, and playing audio.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Update(GameTime gameTime)
+        {
+            KeyboardState state = Keyboard.GetState();
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+            if (Player1.Collide(Snoek))
+            {
+                Exit();
+            }
+            // TODO: Add your update logic here
+            if (Snoek.direction == Player.direction.left)
+            {
+                Snoek.Position.X += Snoek.speed;
+            }
+            if (Snoek.direction == Player.direction.right)
+            {
+                Snoek.Position.X -= Snoek.speed;
+            }
+
+            // Move our sprite based on arrow keys being pressed:
+            if (state.IsKeyDown(Keys.Right))
+                Player1.Move(Player.direction.right);
+            if (state.IsKeyDown(Keys.Left))
+                Player1.Move(Player.direction.left);
+            if (state.IsKeyDown(Keys.Up))
+                Player1.Move(Player.direction.up);
+            if (state.IsKeyDown(Keys.Down))
+                Player1.Move(Player.direction.down);
+            base.Update(gameTime);
+        }
+
+        /// <summary>
+        /// This is called when the game should draw itself.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Draw(GameTime gameTime)
+        {
+//            GraphicsDevice.Clear(Color.HotPink);
+            
+            // TODO: Add your drawing code here
+
+            spriteBatch.Begin();
+            spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White);
+            Player1.Draw(spriteBatch, moveAble); 
+            Snoek.Draw(spriteBatch, enemyTexture);
+            spriteBatch.DrawString(font, "Score" + Snoek.score, new Vector2(100, 100), Color.Black);
+            spriteBatch.End();
+            base.Draw(gameTime);
+          
+        }
+    }
+}
