@@ -38,6 +38,7 @@ namespace Game2
                 direction = direction.right;
                 score+=1;
                 speed += 1;
+
             }
             else if(this.Position.X < 0)
             {

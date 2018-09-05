@@ -20,7 +20,7 @@ namespace Game2
         public enum direction { left, right, up, down };
         private bool jumping;
         private bool falling;
-        private int speed;
+        public int speed;
         public double elapsedAirTime = 0.0;
         double maxAirTime = 12;
         public Vector2 screenSize;
@@ -40,7 +40,7 @@ namespace Game2
         {
             if (this.jumping && elapsedAirTime < maxAirTime)
             {
-                double calc = 30 - (-2 * elapsedAirTime);
+                double calc = 20 - (-4 * elapsedAirTime);
                 elapsedAirTime += 1;
                 this.Position.Y -= (int)calc;
             }
@@ -62,7 +62,7 @@ namespace Game2
         }
         public void Move(direction Direction)
         {
-            if (Direction == direction.left && Position.X > 1)
+            if (Direction == direction.left )
             {
                 this.Position.X -= speed;
             }
