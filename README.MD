@@ -33,3 +33,6 @@ The Da Vinci Engine (DaVE) will be a small 2D game engine, running on the monoga
 - http://www.gamasutra.com/blogs/MichaelKissner/20151027/257369/Writing_a_Game_Engine_from_Scratch__Part_1_Messaging.php
 - http://gameprogrammingpatterns.com/
 - https://www.gameenginebook.com/
+- https://gamedevelopment.tutsplus.com/tutorials/make-a-neon-vector-shooter-in-xna-basic-gameplay--gamedev-9859
+- https://github.com/MonoGame/MonoGame.Samples/tree/develop/Platformer2D/Game
+- https://github.com/aloisdeniel/awesome-monogame
