@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using static ShooterGame.Extensions;
 
 namespace ShooterGame
@@ -14,6 +15,11 @@ namespace ShooterGame
         const int cooldownFrames = 6;
         int cooldownRemaining = 0;
         static Random rand = new Random();
+        private int framesUntilRespawn = 0;
+        public bool IsDead
+        {
+            get { return framesUntilRespawn > 0;  }
+        }
 
         public static PlayerShip Instance
         {
@@ -34,9 +40,24 @@ namespace ShooterGame
             Position = ShooterGame.ScreenSize / 2;
             Radius = 10;
         }
-
-    public override void Update()
+        public override void Draw(SpriteBatch spriteBatch)
         {
+            if (!IsDead)
+                base.Draw(spriteBatch);
+        }
+        public void Kill()
+        {
+            framesUntilRespawn = 60;
+            EnemySpawner.Reset();
+
+        }
+        public override void Update()
+        {
+            if (IsDead)
+            {
+                framesUntilRespawn--;
+                return;
+            }
             const float speed = 8;
             Velocity = speed * Input.GetMovementDirection();
             Position += Velocity;
@@ -65,4 +86,6 @@ namespace ShooterGame
                 cooldownRemaining--;
         }
     }
+
+
 }

@@ -67,6 +67,7 @@ namespace ShooterGame
         {
             Input.Update();
             EntityManager.Update();
+            EnemySpawner.Update();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -85,6 +86,7 @@ namespace ShooterGame
 
             spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
             EntityManager.Draw(spriteBatch);
+            spriteBatch.Draw(Art.Pointer, Input.MousePosition, Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
