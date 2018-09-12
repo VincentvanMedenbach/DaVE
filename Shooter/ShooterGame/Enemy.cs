@@ -18,6 +18,7 @@ namespace ShooterGame
         public bool IsActive { get { return timeUntilStart <= 0; } }
         private List<IEnumerator<int>> behaviours = new List<IEnumerator<int>>();
         static Random rand = new Random();
+        public int PointValue { get; private set; }
 
         public Enemy(Texture2D image, Vector2 position)
         {
@@ -50,6 +51,8 @@ namespace ShooterGame
 
         public void WasShot()
         {
+            PlayerStatus.AddPoints(PointValue);
+            PlayerStatus.IncreaseMultiplier();
             isExpired = true;
         }
 
@@ -146,6 +149,7 @@ namespace ShooterGame
         {
             var enemy = new Enemy(Art.Seeker, position);
             enemy.AddBehaviour(enemy.FollowPlayer());
+            enemy.PointValue = 5;
 
             return enemy;
         }
@@ -154,6 +158,7 @@ namespace ShooterGame
         {
             var enemy = new Enemy(Art.Wanderer, position);
             enemy.AddBehaviour(enemy.MoveRandomly());
+            enemy.PointValue = 3;
             return enemy;
         }
 

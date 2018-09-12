@@ -47,8 +47,13 @@ namespace ShooterGame
         }
         public void Kill()
         {
+            if(PlayerStatus.Lives != 0)
+            PlayerStatus.RemoveLive();
+            else {
+                                PlayerStatus.Reset();
             framesUntilRespawn = 60;
             EnemySpawner.Reset();
+            }
 
         }
         public override void Update()
