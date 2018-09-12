@@ -17,7 +17,7 @@ namespace ShooterGame
         public static int Score { get; private set; }
         public static int Multiplier { get; private set; }
         public static bool IsGameOver { get { return Lives == 0; } }
-        private static int HighScore;
+        public static int HighScore;
         private static float multiplierTimeLeft;
         private static int scoreForExtraLife;
         private const string highScoreFileName = "highscore.txt";
@@ -101,13 +101,7 @@ namespace ShooterGame
         private static void SaveHighScore(int score)
         {
             File.WriteAllText(highScoreFileName, score.ToString());
-        }
-
-        
+        }   
     }
-
-
-
-
     }
 
