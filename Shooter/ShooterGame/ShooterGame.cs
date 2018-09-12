@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using BloomPostprocess;
 
 namespace ShooterGame
 {
@@ -14,13 +15,19 @@ namespace ShooterGame
         public static ShooterGame Instance { get; private set; }
         public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
-
-
+        BloomComponent bloom;
+        public static GameTime gameTime = new GameTime();
         public ShooterGame()
         {
+            Instance = this;
+
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            Instance = this;
+
+            bloom = new BloomComponent(this);
+
+            Components.Add(bloom);
+            bloom.Settings = new BloomSettings(null, 0.25f, 4, 2, 1, 1.5f, 1);
         }
 
         /// <summary>
@@ -84,19 +91,27 @@ namespace ShooterGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+
             GraphicsDevice.Clear(Color.Black);
+            bloom.BeginDraw();
 
             spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
             EntityManager.Draw(spriteBatch);
-
-            spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
-            DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
-            DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35);
+                
+           
 
             spriteBatch.Draw(Art.Pointer, Input.MousePosition, Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
+
+            spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
+            EntityManager.Draw(spriteBatch);
+            spriteBatch.Draw(Art.Pointer, Input.MousePosition, Color.White);
+            spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
+            DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
+            DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35);
+            spriteBatch.End();
         }
         private void DrawRightAlignedString(string text, float y)
         {
