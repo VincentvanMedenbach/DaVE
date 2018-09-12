@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -15,9 +16,11 @@ namespace ShooterGame
         private static bool isUpdating; 
         static List<Entity> addedEntities = new List<Entity>();
         static List<Enemy> enemies = new List<Enemy>();
+        public static List<BlackHole> blackHoles = new List<BlackHole>();
         static List<Bullet> bullets = new List<Bullet>();
 
         public static int Count { get { return entities.Count; } }
+        public static int BlackHoleCount { get; set; }
 
         public static void Add(Entity entity)
         {
@@ -73,6 +76,10 @@ namespace ShooterGame
             float radius = a.Radius + b.Radius;
             return !a.isExpired && !b.isExpired && Vector2.DistanceSquared(a.Position, b.Position) < radius * radius;
         }
+        public static IEnumerable<Entity> GetNearbyEntities(Vector2 position, float radius)
+        {
+            return entities.Where(x => Vector2.DistanceSquared(position, x.Position) < radius * radius);
+        }
 
         static void HandleCollisions()
         {
@@ -103,6 +110,27 @@ namespace ShooterGame
                 {
                     PlayerShip.Instance.Kill();
                     enemies.ForEach(x => x.WasShot());
+                    break;
+                }
+            }
+            for (int i = 0; i < blackHoles.Count; i++)
+            {
+                for (int j = 0; j < enemies.Count; j++)
+                    if (enemies[j].IsActive && IsColliding(blackHoles[i], enemies[j]))
+                        enemies[j].WasShot();
+
+                for (int j = 0; j < bullets.Count; j++)
+                {
+                    if (IsColliding(blackHoles[i], bullets[j]))
+                    {
+                        bullets[j].isExpired = true;
+                        blackHoles[i].WasShot();
+                    }
+                }
+
+                if (IsColliding(PlayerShip.Instance, blackHoles[i]))
+                {
+                     PlayerShip.Instance.Kill();
                     break;
                 }
             }

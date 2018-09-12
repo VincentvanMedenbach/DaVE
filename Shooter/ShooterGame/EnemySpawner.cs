@@ -11,6 +11,7 @@ namespace ShooterGame
     {
         private static Random rand = new Random();
         private static float inverseSpawnChance = 60;
+        private static int inverseBlackHoleChance = 600;
 
         public static void Update()
         {
@@ -21,6 +22,9 @@ namespace ShooterGame
 
                 if (rand.Next((int)inverseSpawnChance) == 0)
                     EntityManager.Add(Enemy.CreateWanderer(GetSpawnPosition()));
+
+                if (EntityManager.blackHoles.Count < 2 && rand.Next((int)inverseBlackHoleChance) == 0)
+                    EntityManager.Add(new BlackHole(GetSpawnPosition()));
             }
             if (inverseSpawnChance > 20)
                 inverseSpawnChance -= 0.005f;
@@ -42,5 +46,6 @@ namespace ShooterGame
         {
             inverseSpawnChance = 60;
         }
+
     }
 }
