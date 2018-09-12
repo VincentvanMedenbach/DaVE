@@ -75,6 +75,7 @@ namespace ShooterGame
                 return GetMouseAimDirection();
 
             Vector2 direction = gamepadState.ThumbSticks.Right;
+            Console.WriteLine(direction);
             direction.Y *= -1;
 
             if (keyboardState.IsKeyDown(Keys.Left))
