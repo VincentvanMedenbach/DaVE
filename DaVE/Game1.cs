@@ -11,6 +11,8 @@ namespace DaVE
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        ConsoleManager consoleManager;
         
         public Game1()
         {
@@ -26,7 +28,8 @@ namespace DaVE
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            consoleManager = new ConsoleManager(this);
+            Components.Add(consoleManager);
 
             base.Initialize();
         }
