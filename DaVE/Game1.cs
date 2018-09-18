@@ -11,11 +11,14 @@ namespace DaVE
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
-        ConsoleManager consoleManager;
+        public static Game1 Instance { get; private set; }
+        public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
+        public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
+        public static GameTime gameTime = new GameTime();
         
         public Game1()
         {
+            Instance = this;
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -28,9 +31,8 @@ namespace DaVE
         /// </summary>
         protected override void Initialize()
         {
-            consoleManager = new ConsoleManager(this);
-            Components.Add(consoleManager);
-
+            // TODO: Add your initialization logic here
+            
             base.Initialize();
         }
 
@@ -42,7 +44,7 @@ namespace DaVE
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            Art.Load(Content);
             // TODO: use this.Content to load your game content here
         }
 
@@ -52,6 +54,7 @@ namespace DaVE
         /// </summary>
         protected override void UnloadContent()
         {
+            Art.Unload(Content);
             // TODO: Unload any non ContentManager content here
         }
 
@@ -62,6 +65,8 @@ namespace DaVE
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            Input.Update();
+            EntityManager.Update();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
