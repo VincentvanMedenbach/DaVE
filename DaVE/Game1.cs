@@ -18,12 +18,23 @@ namespace DaVE
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
         public static GameTime gameTime = new GameTime();
         public static String currentLevel;
-        
+        public static Vector2 screenSize = GetScreenSize();
+        public static bool useAutoResolution = true;
+
+
+
         public Game1()
         {
             Instance = this;
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            if(useAutoResolution == true) { 
+            graphics.PreferredBackBufferWidth =
+                (int)screenSize.X; // set this value to the desired width of your window
+            graphics.PreferredBackBufferHeight =
+                (int)screenSize.Y; // set this value to the desired height of your window
+            graphics.ApplyChanges();
+            }
         }
 
         /// <summary>
@@ -103,6 +114,14 @@ namespace DaVE
         {
             var textWidth = Art.Font.MeasureString(text).X;
             spriteBatch.DrawString(Art.Font, text, new Vector2(ScreenSize.X - textWidth - 5, y), Color.Black);
+        }
+
+        public static Vector2 GetScreenSize()
+        {
+            Vector2 screenSize;
+            screenSize.X = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            screenSize.Y = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            return screenSize;
         }
     }
 }
