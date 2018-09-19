@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using DaVE.Levels;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -10,11 +12,12 @@ namespace DaVE
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public static SpriteBatch spriteBatch;
         public static Game1 Instance { get; private set; }
         public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
         public static GameTime gameTime = new GameTime();
+        public static String currentLevel;
         
         public Game1()
         {
@@ -32,8 +35,9 @@ namespace DaVE
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            
             base.Initialize();
+            Level1 firstLevel = new Level1();
+
         }
 
         /// <summary>
@@ -46,6 +50,7 @@ namespace DaVE
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Art.Load(Content);
             LevelManager.LoadLevel(0);
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -84,9 +89,20 @@ namespace DaVE
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
-
+//             TODO: Add your drawing code here
+            spriteBatch.Begin(SpriteSortMode.Texture);
+            EntityManager.Draw(spriteBatch);
+            LevelManager.Draw(spriteBatch);
+            DrawRightAlignedString("Level: " + currentLevel, 35);
+            spriteBatch.End();
+            
             base.Draw(gameTime);
+        }
+
+        private void DrawRightAlignedString(string text, float y)
+        {
+            var textWidth = Art.Font.MeasureString(text).X;
+            spriteBatch.DrawString(Art.Font, text, new Vector2(ScreenSize.X - textWidth - 5, y), Color.Black);
         }
     }
 }

@@ -13,11 +13,16 @@ namespace DaVE
         public  int number;
         public string name;
 
+       
+
         public Texture2D background;
 
         public virtual void Draw(SpriteBatch spriteBatch)
-        { 
+        
+        {
+//            spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
             spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White);
+//            spriteBatch.End();
         }
     }
 }

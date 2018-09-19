@@ -9,13 +9,13 @@ namespace DaVE.Levels
 {
     class Level1 : Level
     {
-        public Level1(Texture2D image)
+        public Level1()
         {
-            this.background = image;
+            this.background = Art.BackgroundLevel1;
             this.number = 1;
-            this.name = "harry"; 
-
-            
-        } 
+            this.name = "harry";
+            Game1.currentLevel = name;
+            LevelManager.currentLevel = this;
+        }
     }
 }

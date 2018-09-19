@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace DaVE
 {
@@ -11,6 +12,7 @@ namespace DaVE
         static List<Level> Levels = new List<Level>();
 //        private static bool isChanging;
         private int ActiveLevel;
+        public static Level currentLevel;
 
         LevelManager(int number)
         {
@@ -30,5 +32,11 @@ namespace DaVE
 
             }
         }
+
+        public static void Draw(SpriteBatch spriteBatch)
+        {
+            currentLevel.Draw(spriteBatch);
+        }
+
     }
 }
